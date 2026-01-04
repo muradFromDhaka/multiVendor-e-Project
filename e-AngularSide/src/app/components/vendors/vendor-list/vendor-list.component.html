@@ -1,0 +1,9 @@
+<h2>All Vendors</h2>
+<ul>
+  <li *ngFor="let vendor of vendors">
+    {{ vendor.shopName }} - {{ vendor.phone }} - {{ vendor.address }}
+    <button (click)="viewVendor(vendor.id)">View</button>
+    <button (click)="deleteVendor(vendor.id)">Delete</button>
+  </li>
+</ul>
+

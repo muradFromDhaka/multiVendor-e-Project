@@ -1,0 +1,282 @@
+
+
+
+// =====================================================================================================================================
+
+// ---------------- Variables ----------------
+$primary-color: #f85606;
+$secondary-color: #ff6b35;
+$dark-color: #2d2d2d;
+$light-color: #f8f9fa;
+$gray-color: #6c757d;
+$success-color: #28a745;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+
+$shadow: 0 2px 10px rgba(0,0,0,0.1);
+$transition: all 0.3s ease;
+
+// ---------------- Mixins ----------------
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin responsive-grid($cols) {
+  display: grid;
+  grid-template-columns: repeat($cols, 1fr);
+  gap: 20px;
+}
+
+// ---------------- Base ----------------
+.home-page {
+  font-family: "Arial", sans-serif;
+  background: $light-color;
+  color: $dark-color;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  main.main-content {
+    padding: 20px 0;
+  }
+}
+
+// ---------------- Header ----------------
+.header {
+  background: #fff;
+  box-shadow: $shadow;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+// ---------------- Hero Banner ----------------
+.hero-banner {
+  width: 100%;
+  height: 100vh; // full screen
+  position: relative;
+  overflow: hidden;
+  background: #f5f5f5;
+
+  .banner-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main-banner {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+
+    .banner-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .banner-slide {
+      min-width: 100%;
+      height: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; // full width, maintain aspect
+        display: block;
+      }
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+
+      span {
+        width: 12px;
+        height: 12px;
+        background: rgba(255,255,255,0.6);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+
+        &.active {
+          background: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+// ---------------- Section Header ----------------
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .see-all {
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: 500;
+    transition: $transition;
+
+    &:hover {
+      color: $secondary-color;
+    }
+  }
+}
+
+// ---------------- Grids ----------------
+.brands-grid,
+.flash-sale .flash-sale-products,
+.featured-products .products-grid,
+.promo-row {
+  @include responsive-grid(3);
+
+  @media(max-width: 1024px) { grid-template-columns: repeat(2, 1fr); }
+  @media(max-width: 768px)  { grid-template-columns: repeat(1, 1fr); }
+}
+
+// ---------------- Product / Brand Cards ----------------
+.brand-card,
+.product-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: $shadow;
+  text-align: center;
+  transition: $transition;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  }
+
+  .brand-logo,
+  .product-image {
+    width: 100%;
+    height: 180px;
+    @include flex-center;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain; // no overflow
+    }
+  }
+
+  h3 {
+    font-size: 16px;
+    margin: 10px 0;
+    height: 40px;
+    overflow: hidden;
+  }
+
+  .shop-now,
+  .add-to-cart,
+  .buy-now {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: $primary-color;
+    color: white;
+    cursor: pointer;
+    transition: $transition;
+
+    &:hover {
+      background: $secondary-color;
+    }
+  }
+}
+
+// ---------------- Promo Banners ----------------
+.promo-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: $shadow;
+  text-align: center;
+
+  h3 {
+    color: $primary-color;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: $gray-color;
+  }
+}
+
+// ---------------- Footer ----------------
+.footer {
+  background: $dark-color;
+  color: white;
+  padding: 40px 20px 20px;
+
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+
+    h3 { margin-bottom: 15px; }
+    ul { list-style: none; padding: 0; }
+    ul li { margin-bottom: 8px; }
+
+    ul li a {
+      text-decoration: none;
+      color: #ccc;
+      transition: $transition;
+
+      &:hover { color: #fff; padding-left: 5px; }
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 10px;
+      font-size: 24px;
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 20px;
+  }
+}
+
+// ---------------- Media Queries ----------------
+@media(max-width: 1024px) {
+  .hero-banner { height: 60vh; }
+}
+
+@media(max-width: 768px) {
+  .hero-banner { height: 50vh; }
+  .section-header h2 { font-size: 16px; }
+}
+
+@media(max-width: 480px) {
+  .hero-banner { height: 40vh; }
+  .brands-grid,
+  .flash-sale .flash-sale-products,
+  .featured-products .products-grid,
+  .promo-row { grid-template-columns: 1fr; }
+}

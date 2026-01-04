@@ -1,0 +1,43 @@
+<div class="product-list-cards">
+  <div class="header">
+    <h2>Products</h2>
+    <button class="add-btn" 
+    [routerLink]="['/adminLayout/adminProductForm']"
+    *ngIf="authService.hasRole('ROLE_ADMIN') ||
+  authService.hasRole('ROLE_VENDOR')"
+        >Add Product</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div class="cards-container" *ngIf="!loading && products.length > 0">
+    <div class="product-card" *ngFor="let product of products">
+      <div class="image-wrapper">
+        <img *ngIf="product.imageUrls?.length" [src]="'http://localhost:8080/'+product.imageUrls?.[0]" alt="{{ product.name }}" />
+      </div>
+      <div class="product-info">
+        <h3>{{ product.name }}</h3>
+        <p class="vendorName">{{ product.vendorName }}</p>
+        <p class="brandName">{{ product.brandName }}</p>
+        <p class="category">{{ product.description }}</p>
+        <p class="category">{{ product.categoryName }}</p>
+        <p class="price">{{ product.price | currency }}</p>
+        <p class="stock">Stock: {{ product.stockQuantity }}</p>
+      </div>
+      <div class="actions">
+        <button class="delete" [routerLink]="['/adminLayout/adminProductView', product.id]">View</button>
+        <button class="btn btn-success" (click)="addToCart(product)">Add to Cart</button>
+<button (click)="editProduct(product.id)" *ngIf="authService.hasRole('ROLE_ADMIN') ||
+  authService.hasRole('ROLE_VENDOR')">Edit</button>
+
+        <button class="delete" (click)="deleteProduct(product.id)"  *ngIf="authService.hasRole('ROLE_ADMIN') ||
+  authService.hasRole('ROLE_VENDOR')">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && products.length === 0" class="no-products">
+    No products found.
+  </div>
+</div>
+

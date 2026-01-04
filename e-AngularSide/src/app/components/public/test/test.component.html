@@ -1,0 +1,174 @@
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================================================================================================================================ -->
+ <div class="home-page">
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Hero Banner -->
+      <section class="hero-banner">
+        <div class="banner-container">
+          <!-- <div class="side-categories"> -->
+            <!-- <h3>Categories</h3>
+            <ul class="category-list"> -->
+              
+              <!-- <li *ngFor="let category of categories" class="category-item">
+                <a [routerLink]="['/categoryProduct',category.id, category.name]">
+                   <span class="category-icon">{{ getCategoryEmoji(category.name) }}</span>
+                  <span class="category-name">{{ category.name }}</span>
+                </a> -->
+
+                <!-- Subcategories Dropdown -->
+                <!-- <ul
+                  class="subcategory-list"
+                  *ngIf="category.subCategories?.length"
+                >
+                  <li *ngFor="let sub of category.subCategories">
+                    <a [routerLink]="['/categoryProduct', sub.id, sub.name]">{{
+                      sub.name
+                    }}</a>
+                  </li>
+                </ul>
+              </li> -->
+
+            <!-- </ul> -->
+          <!-- </div> -->
+
+          <!-- Main carousel -->
+          <div class="main-banner">
+            <div
+              class="banner-track"
+              [style.transform]="'translateX(-' + currentIndex * 100 + '%)'"
+            >
+              <div class="banner-slide" *ngFor="let c of categories">
+                <img [src]="baseImageUrl + c.imageUrl" alt="Banner" />
+              </div>
+            </div>
+
+            <!-- Dots -->
+            <div class="dots">
+              <span
+                *ngFor="let c of categories; let i = index"
+                (click)="goToSlide(i)"
+                [class.active]="i === currentIndex"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- Category List -->
+      <section class="top-brands">
+        <div class="section-header">
+          <h2>🏆 Top Category</h2>
+          <a  class="see-all" routerLink="/adminLayout/adminCategoryList">See All Category→</a>
+        </div>
+
+        <div class="brands-grid">
+          <div class="brand-card" *ngFor="let c of categories">
+            <div class="brand-logo">
+              <img [src]="baseImageUrl + c.imageUrl" [alt]="c.name" />
+            </div>
+            <h3>{{ c.name }}</h3>
+            <button class="shop-now" [routerLink]="['/categoryProduct', c.id, c.name]">Shop Now</button>
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+      <!-- Top Brands -->
+      <section class="top-brands">
+        <div class="section-header">
+          <h2>🏆 Top Brands</h2>
+          <a  class="see-all" routerLink="/adminLayout/brand">See All →</a>
+        </div>
+
+        <div class="brands-grid">
+          <div class="brand-card" *ngFor="let brand of topBrands">
+            <div class="brand-logo">
+              <img [src]="baseImageUrl + brand.logoUrl" [alt]="brand.name" />
+            </div>
+            <h3>{{ brand.name }}</h3>
+            <button class="shop-now" [routerLink]="['/brand', brand.id]">Shop Now</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Promo Banners -->
+      <section class="promo-banners">
+        <div class="promo-row">
+          <div class="promo-card">
+            <h3>🚚 Free Shipping</h3>
+            <p>On orders over Rs. 1999</p>
+          </div>
+          <div class="promo-card">
+            <h3>💯 Authentic Products</h3>
+            <p>100% genuine items</p>
+          </div>
+          <div class="promo-card">
+            <h3>↩️ Easy Returns</h3>
+            <p>15 days return policy</p>
+          </div>
+          <div class="promo-card">
+            <h3>🛡️ Buyer Protection</h3>
+            <p>Secure payments</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Customer Care</h3>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">How to Buy</a></li>
+            <li><a href="#">Returns & Refunds</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Daraz</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Payment Methods</h3>
+          <div class="payment-methods">
+            <span>💳</span>
+            <span>🏦</span>
+            <span>📱</span>
+            <span>💰</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2023 Daraz. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</div>

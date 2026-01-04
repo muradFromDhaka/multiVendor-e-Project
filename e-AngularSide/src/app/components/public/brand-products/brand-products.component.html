@@ -1,0 +1,51 @@
+<div class="brand-products container">
+  <div class="header">
+    <h2 class="title">
+      Products
+      <span *ngIf="brandId">for this Brand</span>
+    </h2>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading" *ngIf="loading">
+    Loading products...
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty" *ngIf="!loading && products.length === 0">
+    No products found for this brand.
+  </div>
+
+  <!-- Product Grid -->
+  <div class="product-grid" *ngIf="!loading && products.length > 0">
+    <div class="product-card" *ngFor="let p of products">
+      <div class="image">
+        <img *ngIf="p.imageUrls?.length; else placeholder" [src]="baseImageUrl + p.imageUrls?.[0]" [alt]="p.name" />
+        <ng-template #placeholder>
+          <div class="img-placeholder">No Image</div>
+        </ng-template>
+      </div>
+
+      <h3 class="name">{{ p.name }}</h3>
+
+      <div class="price">
+        <span class="discount" *ngIf="p.discountPrice">
+          {{ p.discountPrice | number:'1.0-0' }}৳
+        </span>
+        <span class="original" [class.strike]="p.discountPrice">
+          {{ p.price | number:'1.0-0' }}৳
+        </span>
+      </div>
+
+      <div class="rating" *ngIf="p.averageRating">
+        ⭐ {{ p.averageRating }}
+      </div>
+
+      <div class="actions">
+        <button class="btn-add-cart" [routerLink]="['/view',p.id]">View</button>
+        <button class="btn-shop-now">Shop Now</button>
+        <button class="btn-add-cart">Add to Cart</button>                  
+    </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+<!-- <div *ngIf="loading">Loading...</div> -->
+
+<!-- <div *ngIf="!loading && vendor"> -->
+  <!-- <h2>Welcome, {{ vendor.shopName }}</h2>
+
+  <p>Status: {{ vendor.status }}</p>
+  <p>Rating: {{ vendor.rating }}</p>
+
+  <hr>
+
+  <h3>Contact Info</h3>
+  <p>Email: {{ vendor.businessEmail }}</p>
+  <p>Phone: {{ vendor.phone }}</p>
+  <p>Address: {{ vendor.address }}</p>
+
+  <hr>
+
+  <button routerLink="/vendor/vendorForm">Add Vendor</button>
+  <button routerLink="/vendor/profile">Edit Profile</button>
+  <button routerLink="/vendor/orders">Orders</button>
+  <button routerLink="/vendor/payouts">Payouts</button> -->
+<!-- </div> -->
+
+<div class="dashboard">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo">Vendor Dashboard</div>
+    <ul class="menu">
+      <li class="menu-item active" (click)="selectTab('profile')"><i>👤</i> Profile</li>
+      <li class="menu-item" (click)="selectTab('orders')"><i>🛒</i> Orders</li>
+      <li class="menu-item" (click)="selectTab('products')"><i>📦</i> Products</li>
+      <li class="menu-item" (click)="selectTab('analytics')"><i>📈</i> Analytics</li>
+      <li class="menu-item" (click)="selectTab('messages')"><i>💬</i> Messages</li>
+      <li class="menu-item" (click)="selectTab('settings')"><i>⚙️</i> Settings</li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Profile Tab -->
+    <section *ngIf="activeTab==='profile'" class="tab-content profile-tab">
+      <h2>Profile Overview</h2>
+      <div class="profile-card">
+        <div class="banner-wrapper">
+          <img *ngIf="vendor.bannerUrl" [src]="vendor.bannerUrl" alt="Banner" class="banner">
+        </div>
+        <div class="profile-info">
+          <div class="logo-wrapper">
+            <img *ngIf="vendor.logoUrl" [src]="vendor.logoUrl" alt="Logo" class="logo">
+          </div>
+          <h3>{{ vendor.shopName }}</h3>
+          <p><strong>Phone:</strong> {{ vendor.phone }}</p>
+          <p><strong>Email:</strong> {{ vendor.businessEmail }}</p>
+          <p><strong>Address:</strong> {{ vendor.address }}</p>
+          <p><strong>Description:</strong> {{ vendor.description }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Orders Tab -->
+    <section *ngIf="activeTab==='orders'" class="tab-content orders-tab">
+      <h2>Recent Orders</h2>
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{order.id}}</td>
+            <td>{{order.customer}}</td>
+            <td>{{order.date}}</td>
+            <td [ngClass]="order.status.toLowerCase()">{{order.status}}</td>
+            <td>{{order.total | currency}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Products Tab -->
+    <section *ngIf="activeTab==='products'" class="tab-content products-tab">
+      <div class="product-header">
+        <h2>Products</h2>
+        <button (click)="openModal()">+ Add Product</button>
+      </div>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{product.name}}</td>
+            <td>{{product.price | currency}}</td>
+            <td>{{product.stock}}</td>
+            <td [ngClass]="product.status.toLowerCase()">{{product.status}}</td>
+            <td>
+              <button (click)="editProduct(product)">Edit</button>
+              <button (click)="deleteProduct(product)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Analytics Tab -->
+    <section *ngIf="activeTab==='analytics'" class="tab-content analytics-tab">
+      <h2>Revenue Analytics</h2>
+      <canvas id="revenueChart"></canvas>
+    </section>
+
+  </main>
+
+  <!-- Product Modal -->
+  <div class="modal" [class.active]="modalOpen">
+    <div class="modal-content">
+      <h3>{{ editingProduct ? 'Edit Product' : 'Add Product' }}</h3>
+      <form (ngSubmit)="saveProduct()">
+        <input type="text" placeholder="Product Name" [(ngModel)]="productForm.name" name="name" required>
+        <input type="number" placeholder="Price" [(ngModel)]="productForm.price" name="price" required>
+        <input type="number" placeholder="Stock" [(ngModel)]="productForm.stock" name="stock" required>
+        <select [(ngModel)]="productForm.status" name="status">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+        <div class="modal-actions">
+          <button type="submit">{{ editingProduct ? 'Update' : 'Add' }}</button>
+          <button type="button" (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+

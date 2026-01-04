@@ -1,0 +1,106 @@
+<div
+  class="admin-product-details-container"
+  *ngIf="!loading; else loadingTemplate"
+>
+  <!-- Error Message -->
+  <div *ngIf="errorMessage; else productDetails">
+    <p class="error-message">{{ errorMessage }}</p>
+    <button class="btn-back" (click)="goBack()">Go Back</button>
+  </div>
+
+  <!-- Product Details -->
+  <ng-template #productDetails>
+    <div class="product-details-card">
+      <!-- Left: Product Images -->
+      <div class="product-images">
+        <!-- Main Image -->
+        <div class="main-image">
+          <img [src]="displayedImage" alt="{{ product.name }}" />
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="thumbnail-images">
+          <img
+            *ngFor="
+              let img of product.imageUrls?.length
+                ? product.imageUrls
+                : defaultImages;
+              let i = index
+            "
+            [src]="img.startsWith('http') ? img : baseImageUrl + img"
+            [class.selected]="i === selectedImageIndex"
+            (click)="selectImage(i)"
+            (mouseenter)="selectImage(i)"
+            alt="Product Image {{ i + 1 }}"
+          />
+        </div>
+      </div>
+
+      <!-- Right: Product Info -->
+      <div class="product-info">
+        <h2 class="product-name">{{ product.name }}</h2>
+
+        <p class="product-sku"><strong>SKU:</strong> {{ product.sku }}</p>
+
+        <p class="product-category" *ngIf="product.categoryName">
+          <strong>Category:</strong> {{ product.categoryName }}
+        </p>
+
+        <p class="product-status">
+          <strong>Status:</strong>
+          <span
+            [class.active]="product.status === 'ACTIVE'"
+            [class.inactive]="product.status !== 'ACTIVE'"
+          >
+            {{ product.status || "N/A" }}
+          </span>
+        </p>
+
+        <div class="product-price">
+          <span class="discount-price" *ngIf="product.discountPrice">
+            ${{ product.discountPrice.toFixed(2) }}
+          </span>
+          <span
+            class="original-price"
+            [class.has-discount]="product.discountPrice"
+          >
+            ${{ product.price.toFixed(2) }}
+          </span>
+          <span
+            class="discount-percentage"
+            *ngIf="calculateDiscountPercentage() > 0"
+          >
+            ({{ calculateDiscountPercentage() }}% OFF)
+          </span>
+        </div>
+
+        <p class="product-stock">
+          <strong>Stock:</strong> {{ product.stockQuantity }}
+        </p>
+
+        <p class="product-release-date">
+          <strong>Release Date:</strong> {{ formatDate(product.releaseDate) }}
+        </p>
+
+        <p class="product-description" *ngIf="product.description">
+          {{ product.description }}
+        </p>
+
+        <div class="action-buttons">
+          <button class="btn-edit" (click)="editProduct()" *ngIf="authService.hasRole('ROLE_ADMIN') &&
+  authService.hasRole('ROLE_VENDOR')">Edit Product</button>
+          <button class="btn-back" (click)="addToCart(product)">AddToCart</button>
+          <button class="btn-back" (click)="goBack()">Back to List</button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Loading Template -->
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <p>Loading product details...</p>
+    <div class="spinner"></div>
+  </div>
+</ng-template>

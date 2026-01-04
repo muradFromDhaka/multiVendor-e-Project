@@ -1,0 +1,215 @@
+.brand-products {
+  padding: 20px;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+
+  .header {
+    margin-bottom: 20px;
+    .title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #333;
+
+      span {
+        font-weight: 400;
+        color: #555;
+        font-size: 18px;
+        margin-left: 8px;
+      }
+    }
+  }
+
+  .loading, .empty {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+    padding: 50px 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+
+    .product-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      }
+
+      .image {
+        width: 100%;
+        padding-top: 100%;
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 12px;
+        background-color: #f5f5f5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .img-placeholder {
+          font-size: 16px;
+          color: #aaa;
+        }
+      }
+
+      .name {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+
+      .price {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+        align-items: center;
+
+        .discount {
+          font-size: 16px;
+          font-weight: 600;
+          color: #dc3545;
+        }
+
+        .original {
+          font-size: 14px;
+          color: #777;
+
+          &.strike {
+            text-decoration: line-through;
+          }
+        }
+      }
+
+      .rating {
+        font-size: 14px;
+        color: #f0a500;
+        margin-bottom: 12px;
+      }
+
+    //   .actions {
+    //     display: flex;
+    //     gap: 10px;
+    //     flex-wrap: wrap;
+    //     justify-content: center;
+
+    //     button {
+    //       padding: 6px 14px;
+    //       font-size: 14px;
+    //       border-radius: 6px;
+    //       border: none;
+    //       cursor: pointer;
+    //       transition: background-color 0.2s;
+
+    //       &.btn-shop-now {
+    //         background-color: #007bff;
+    //         color: #fff;
+    //         &:hover {
+    //           background-color: #0056b3;
+    //         }
+    //       }
+
+    //       &.btn-add-cart {
+    //         background-color: #28a745;
+    //         color: #fff;
+    //         &:hover {
+    //           background-color: #218838;
+    //         }
+    //       }
+    //     }
+    //   }
+
+
+
+    .actions {
+  display: flex;
+  justify-content: space-between; // buttons spread evenly
+  gap: 10px;
+  flex-wrap: nowrap; // prevent wrapping
+
+  button {
+    flex: 1; // each button takes equal width
+    padding: 8px 0;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &.btn-view {
+      background-color: #6c757d;
+      color: #fff;
+      &:hover {
+        background-color: #5a6268;
+      }
+    }
+
+    &.btn-shop-now {
+      background-color: #007bff;
+      color: #fff;
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &.btn-add-cart {
+      background-color: #28a745;
+      color: #fff;
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
+
+  // Make buttons stack nicely on very small screens
+  @media (max-width: 400px) {
+    flex-direction: column;
+    button {
+      flex: 1 1 100%;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+    }
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .brand-products {
+    .product-grid {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+  }
+}

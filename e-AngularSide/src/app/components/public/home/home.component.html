@@ -1,0 +1,327 @@
+
+    <!-- Header Section -->
+    <!-- <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-sun"></i>
+                    <h1>Sunshine<span>Store</span></h1>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for products...">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="#"><i class="fas fa-home"></i> Home</a>
+                    <a href="#"><i class="fas fa-shopping-bag"></i> Shop</a>
+                    <a href="#"><i class="fas fa-tag"></i> Deals</a>
+                    <a href="#"><i class="fas fa-user"></i> Account</a>
+                    <a href="#" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                </nav>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header> -->
+
+
+    <!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h2>Winter Sale <span>2026</span></h2>
+        <p>Up to 60% off on all Sunshine-themed products. Brighten up your life with our sunshine collection!</p>
+        <button class="btn-primary">Shop Now <i class="fas fa-arrow-right"></i></button>
+      </div>
+
+      <!-- Carousel -->
+      <div class="hero-carousel">
+        <div class="carousel-track" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+          <div class="carousel-slide" *ngFor="let c of categories">
+            <div class="yellow-circle"></div>
+            <img [src]="baseImageUrl + c.imageUrl" [alt]="c.name">
+          </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="dots">
+          <span *ngFor="let c of categories; let i = index"
+                (click)="goToSlide(i)"
+                [class.active]="i === currentIndex"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+ <!-- ======================================== -->
+
+    <!-- Featured Categories -->
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Shop by Category</h2>
+            <div class="category-grid">
+                <div class="category-card" *ngFor="let c of categories">
+                    <div >
+                        <img [src]="baseImageUrl + c.imageUrl" [alt]="c.name" />
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <h3>{{c.name}}</h3>
+                    <p>{{c.parentName}}</p>
+                    <a [routerLink]="['/categoryProduct',c.id, c.name]">View All</a>
+                </div>
+                <!-- <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home Decor</h3>
+                    <p>Sunshine for your living space</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>Electronics</h3>
+                    <p>Yellow tech gadgets & accessories</p>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Beauty</h3>
+                    <p>Yellow beauty & wellness products</p>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Featured Products</h2>
+            <div class="product-grid">
+                <div class="product-card" *ngFor="let p of products">
+                    <div class="product-badge">{{p.status}}</div>
+                    <div class="product-image">
+                        <img [src]="'http://localhost:8080/'+p.imageUrls?.[0]" [alt]="p.name">
+                    </div>
+                    <div class="product-info">
+                        <h3>{{p.name}}</h3>
+                        <p class="product-desc">{{p.description}}</p>
+                        <div class="product-price">
+                            <span class="current-price">${{p.price}}</span> &nbsp;
+                            <span class="current-price"> discount: ${{p.discountPrice}}</span>
+                        </div>
+                        <button class="btn-add-to-cart" [routerLink]="['/view',p.id]"><i class="fas fa-cart-plus"></i>View this</button> &nbsp;
+                        <button class="btn-add-to-cart" (click)="addToCart(p)"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    </div>
+                </div>
+                
+                <!-- <div class="product-card">
+                    <div class="product-badge">New</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Yellow Sunglasses">
+                    </div>
+                    <div class="product-info">
+                        <h3>Yellow Sunglasses</h3>
+                        <p class="product-desc">UV protection with style</p>
+                        <div class="product-price">
+                            <span class="current-price">$29.99</span>
+                            <span class="original-price">$39.99</span>
+                        </div>
+                        <button class="btn-add-to-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Yellow Sneakers">
+                    </div>
+                    <div class="product-info">
+                        <h3>Sunny Sneakers</h3>
+                        <p class="product-desc">Comfortable yellow sneakers</p>
+                        <div class="product-price">
+                            <span class="current-price">$74.99</span>
+                        </div>
+                        <button class="btn-add-to-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="product-card">
+                    <div class="product-badge">Sale</div>
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Yellow Backpack">
+                    </div>
+                    <div class="product-info">
+                        <h3>Yellow Backpack</h3>
+                        <p class="product-desc">Durable and spacious backpack</p>
+                        <div class="product-price">
+                            <span class="current-price">$44.99</span>
+                            <span class="original-price">$59.99</span>
+                        </div>
+                        <button class="btn-add-to-cart"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="promo-banner">
+        <div class="container">
+            <div class="promo-content">
+                <div class="promo-text">
+                    <h2>Get 25% Off Your First Order!</h2>
+                    <p>Use code: <strong>SUNSHINE25</strong> at checkout</p>
+                    <button class="btn-secondary">Claim Offer</button>
+                </div>
+                <div class="promo-image">
+                    <i class="fas fa-gift"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay in the Sunshine!</h2>
+                <p>Subscribe to our newsletter for exclusive deals and yellow-themed inspiration.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your email address" required>
+                    <button type="submit" class="btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-sun"></i>
+                        <h2>Sunshine<span>Store</span></h2>
+                    </div>
+                    <p>Bringing sunshine to your doorstep with our exclusive yellow-themed products.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="#">All Products</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#">Sale</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Sunshine Ave, Bright City</li>
+                        <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> hello@sunshinestore.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Sunshine Store. All rights reserved. | Made with <i class="fas fa-heart"></i> and sunshine</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu (hidden by default) -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <i class="fas fa-sun"></i>
+                <h2>Sunshine<span>Store</span></h2>
+            </div>
+            <button class="close-menu-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="mobile-menu-links">
+            <a href="#"><i class="fas fa-home"></i> Home</a>
+            <a href="#"><i class="fas fa-shopping-bag"></i> Shop</a>
+            <a href="#"><i class="fas fa-tag"></i> Deals</a>
+            <a href="#"><i class="fas fa-user"></i> Account</a>
+            <a href="#"><i class="fas fa-shopping-cart"></i> Cart <span class="cart-count">3</span></a>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const closeMenuBtn = document.querySelector('.close-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+        
+        closeMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+        
+        // Add to cart button functionality
+        const addToCartButtons = document.querySelectorAll('.btn-add-to-cart');
+        const cartCount = document.querySelector('.cart-count');
+        
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                let count = parseInt(cartCount.textContent);
+                count++;
+                cartCount.textContent = count;
+                
+                // Button feedback
+                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                this.style.backgroundColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                    this.style.backgroundColor = '';
+                }, 1500);
+            });
+        });
+        
+        // Newsletter form submission
+        const newsletterForm = document.querySelector('.newsletter-form');
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = this.querySelector('input[type="email"]');
+            
+            if(emailInput.value) {
+                alert('Thank you for subscribing to our newsletter! Check your email for a welcome gift.');
+                emailInput.value = '';
+            }
+        });
+    </script>
