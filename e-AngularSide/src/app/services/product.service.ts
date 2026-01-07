@@ -68,6 +68,10 @@ getProductsByBrand(brandId: number): Observable<ProductResponse[]> {
 }
 
 
+getProductsByVendor(): Observable<ProductResponse[]> {
+  return this.http.get<ProductResponse[]>(`${this.baseUrl}/my/product`);
+}
+
 
 
   /** DELETE PRODUCT */

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductResponse } from 'src/app/models/product.model';
 import { VendorResponse } from 'src/app/models/vendor.model';
+import { ProductService } from 'src/app/services/product.service';
 import { VendorService } from 'src/app/services/vendor.service';
 
 @Component({
@@ -16,15 +18,6 @@ export class VendorDashboardComponent implements OnInit {
   editingProduct: any = null;
 
    vendor!: VendorResponse;
-  // {
-  //   shopName: 'Ziaul Shop',
-  //   phone: '+8801234567890',
-  //   businessEmail: 'shop@example.com',
-  //   address: 'Dhaka, Bangladesh',
-  //   description: 'Best shop in town',
-  //   logoUrl: 'https://via.placeholder.com/100',
-  //   bannerUrl: 'https://via.placeholder.com/400x150'
-  // };
 
   orders = [
     { id: '#1021', customer: 'John Doe', date: '2026-01-02', status: 'Pending', total: 120 },
@@ -32,30 +25,57 @@ export class VendorDashboardComponent implements OnInit {
     { id: '#1019', customer: 'Mark Lee', date: '2025-12-30', status: 'Cancelled', total: 80 }
   ];
 
-  products=[
-    { name: 'Product A', price: 50, stock: 20, status: 'Active' },
-    { name: 'Product B', price: 120, stock: 10, status: 'Inactive' }
-  ];
+  products!: ProductResponse[];
 
-  productForm = { name: '', price: 0, stock: 0, status: 'Active' };
+
+  productForm!: FormGroup; 
 
   constructor(
     private router: Router,
+    private producService: ProductService,
     private vendorServie: VendorService,
   ){}
   ngOnInit(): void {
-    this.vendorServie.getMyVendor().subscribe((res) => this.vendor = res)
+    this.loadVendor();
+    this.loadProducts();
   }
+
+   loadVendor() {
+    this.vendorServie.getMyVendor().subscribe((res) => this.vendor = res);
+  }
+
+    loadProducts() {
+    this.producService.getProductsByVendor()
+      .subscribe(res => this.products = res);
+  }
+
+
 
   selectTab(tab: string) {
     this.activeTab = tab;
     // this.router.navigate(['/vendor/vendorProfile'])
   }
 
+//   selectTab(tab: string) {
+//     this.activeTab = tab;
+
+//     switch(tab) {
+//       case 'profile':
+//         this.router.navigate(['/vendor/profile']);
+//         break;
+//       case 'products':
+//         this.router.navigate(['/vendor/products']);
+//         break;
+//       case 'orders':
+//         this.router.navigate(['/vendor/orders']);
+//         break;
+//     }
+// }
+
+
   openModal() {
     this.modalOpen = true;
     this.editingProduct = null;
-    this.productForm = { name: '', price: 0, stock: 0, status: 'Active' };
   }
 
   closeModal() {
@@ -72,7 +92,7 @@ export class VendorDashboardComponent implements OnInit {
     if(this.editingProduct) {
       Object.assign(this.editingProduct, this.productForm);
     } else {
-      this.products.push({ ...this.productForm });
+      // this.products.push({ ...this.productForm });
     }
     this.closeModal();
   }

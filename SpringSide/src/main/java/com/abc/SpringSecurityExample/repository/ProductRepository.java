@@ -99,4 +99,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // Brand ID অনুযায়ী প্রোডাক্ট খুঁজবে
     List<Product> findByBrandId(Long brandId);
 
+
 }

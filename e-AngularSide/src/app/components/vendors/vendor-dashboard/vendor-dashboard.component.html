@@ -104,8 +104,8 @@
           <tr *ngFor="let product of products">
             <td>{{product.name}}</td>
             <td>{{product.price | currency}}</td>
-            <td>{{product.stock}}</td>
-            <td [ngClass]="product.status.toLowerCase()">{{product.status}}</td>
+            <td>{{product.stockQuantity}}</td>
+            <td [ngClass]="product.status?.toLowerCase">{{product.status}}</td>
             <td>
               <button (click)="editProduct(product)">Edit</button>
               <button (click)="deleteProduct(product)">Delete</button>
@@ -123,18 +123,29 @@
 
   </main>
 
+
+
+
+
+
+
+
+
+
+
+  
   <!-- Product Modal -->
   <div class="modal" [class.active]="modalOpen">
     <div class="modal-content">
       <h3>{{ editingProduct ? 'Edit Product' : 'Add Product' }}</h3>
       <form (ngSubmit)="saveProduct()">
-        <input type="text" placeholder="Product Name" [(ngModel)]="productForm.name" name="name" required>
-        <input type="number" placeholder="Price" [(ngModel)]="productForm.price" name="price" required>
-        <input type="number" placeholder="Stock" [(ngModel)]="productForm.stock" name="stock" required>
-        <select [(ngModel)]="productForm.status" name="status">
+        <!-- <input type="text" placeholder="Product Name" [(ngModel)]="productForm.name" name="name" required> -->
+        <!-- <input type="number" placeholder="Price" [(ngModel)]="productForm.price" name="price" required> -->
+        <!-- <input type="number" placeholder="Stock" [(ngModel)]="productForm.stock" name="stock" required> -->
+        <!-- <select [(ngModel)]="productForm.status" name="status">
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>
-        </select>
+        </select> -->
         <div class="modal-actions">
           <button type="submit">{{ editingProduct ? 'Update' : 'Add' }}</button>
           <button type="button" (click)="closeModal()">Cancel</button>

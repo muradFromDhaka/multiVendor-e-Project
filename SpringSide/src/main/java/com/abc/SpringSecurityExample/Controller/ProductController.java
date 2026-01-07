@@ -3,11 +3,15 @@ package com.abc.SpringSecurityExample.Controller;
 import com.abc.SpringSecurityExample.DTOs.projectDtos.ProductRequestDto;
 import com.abc.SpringSecurityExample.DTOs.projectDtos.ProductResponseDto;
 import com.abc.SpringSecurityExample.entity.Product;
+import com.abc.SpringSecurityExample.entity.Vendor;
 import com.abc.SpringSecurityExample.enums.ProductStatus;
+import com.abc.SpringSecurityExample.repository.VendorRepository;
 import com.abc.SpringSecurityExample.service.ProductService;
+import com.abc.SpringSecurityExample.service.VendorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +25,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final VendorRepository vendorRepository;
 
     // ---------------- CREATE PRODUCT ----------------
     @PostMapping
@@ -135,5 +140,20 @@ public class ProductController {
     public List<ProductResponseDto> getProductsByBrand(@PathVariable Long brandId) {
         return productService.getProductsByBrandDto(brandId);
     }
+
+    @GetMapping("/vendor")
+    public List<ProductResponseDto> getProductsByVendor(@PathVariable Long vendorId) {
+        return productService.getProductsByVendorId(vendorId);
+    }
+
+    @GetMapping("/my/product")
+    public List<ProductResponseDto> getMyProducts(Authentication authentication) {
+        String username = authentication.getName(); // get logged-in username
+        Vendor vendor = vendorRepository.findByUserUserName(username)
+                .orElseThrow(() -> new RuntimeException("Vendor not found for this user"));
+        return productService.getProductsByVendorId(vendor.getId());
+    }
+
+
 
 }

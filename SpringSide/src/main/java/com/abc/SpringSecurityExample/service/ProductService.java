@@ -289,6 +289,15 @@ public class ProductService {
     }
 
 
+    public List<ProductResponseDto> getProductsByVendorId(Long vendorID) {
+        List<Product> products = productRepository.findByVendorId(vendorID);
+
+        // Map Product -> ProductResponseDto
+        return products.stream()
+                .map(ProductMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
 
 
 

@@ -16,4 +16,5 @@ public interface VendorRepository extends JpaRepository<Vendor, Long>{
 
     // Check if slug already exists
     boolean existsBySlug(String slug);
+
 }
